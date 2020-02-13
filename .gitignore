@@ -1,4 +1,6 @@
 /tmp
 __pycache__
 checkpoint
-model*
+data.tar.gz
+/tests/yolo-v2-demo/devicehive-video-analysis/data
+Stubborn Husky demands water bowl refill.mp4

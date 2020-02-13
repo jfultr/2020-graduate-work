@@ -1,0 +1,7 @@
+tensorflow
+opencv-contrib-python==3.4.2.16
+devicehive==2.1.3
+devicehive-webconfig==1.0.2
+six==1.11.0
+pafy==0.5.3.1
+youtube-dl==2017.11.15
