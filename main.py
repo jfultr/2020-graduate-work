@@ -2,9 +2,9 @@ import requests
 import threading
 import time
 
-
 url = 'http://169.254.45.12/html/cam_pic.php'
 file_path = 'tmp/img.jpg'
+
 
 def catch_path_exception(write_funck):
     def decorated_function(path, content):
@@ -12,6 +12,7 @@ def catch_path_exception(write_funck):
             write_funck(path, content)
         except OSError:
             print('catched!!')
+
     return decorated_function
 
 
@@ -25,7 +26,6 @@ def write_img(file_path, content):
 def main_loop():
     while True:
         start = time.time()
-        # time.sleep(0.1)
         p = requests.get(url)
         write_img(file_path, p)
         print(start - time.time())
