@@ -1,6 +1,2 @@
-/tmp
-__pycache__
-checkpoint
-data.tar.gz
-/tests/yolo-v2-demo/devicehive-video-analysis/data
-Stubborn Husky demands water bowl refill.mp4
+checkpoints/yolov3.tf.data-00000-of-00001
+data/yolov3.weights
