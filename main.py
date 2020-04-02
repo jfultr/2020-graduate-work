@@ -13,6 +13,7 @@ flags.DEFINE_string('classes', './data/coco.names', 'path to classes file')
 flags.DEFINE_string('weights', './checkpoints/yolov3.tf',
                     'path to weights file')
 flags.DEFINE_integer('size', 416, 'resize images to')
+flags.DEFINE_string('url', 'http://169.254.45.12:8080/?action=snapshot', 'url to stream')
 
 from yolov3_tf2.dataset import transform_images, load_tfrecord_dataset
 from yolov3_tf2.utils import draw_outputs
@@ -32,22 +33,22 @@ def classification():
     class_names = [c.strip() for c in open(FLAGS.classes).readlines()]
     print('classes loaded')
 
-    cap = cv2.VideoCapture('http://169.254.104.205:8080/?action=stream')
-
 
 
     while True:
+        cap = cv2.VideoCapture(FLAGS.url)
         ret, img_raw = cap.read()
-        frame = tf.expand_dims(img_raw, 0)
-        frame = transform_images(frame, FLAGS.size)
-        boxes, scores, classes, nums = yolo(frame)
+        if ret:
+            frame = tf.expand_dims(img_raw, 0)
+            frame = transform_images(frame, FLAGS.size)
+            boxes, scores, classes, nums = yolo(frame)
 
-        frame = cv2.cvtColor(img_raw, cv2.COLOR_BGR2GRAY)
-        frame = draw_outputs(frame, (boxes, scores, classes, nums), class_names)
+            frame = cv2.cvtColor(img_raw, cv2.COLOR_BGR2GRAY)
+            frame = draw_outputs(frame, (boxes, scores, classes, nums), class_names)
 
-        cv2.imshow('gray', frame)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+            cv2.imshow('gray', frame)
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
 
     cap.release()
     cv2.destroyAllWindows()
