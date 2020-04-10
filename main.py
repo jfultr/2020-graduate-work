@@ -3,10 +3,14 @@ import threading
 from absl import app, flags
 from absl.flags import FLAGS
 import tensorflow as tf
+import time
 
 from yolov3_tf2.models import (
     YoloV3, YoloV3Tiny
 )
+
+from yolov3_tf2.dataset import transform_images, load_tfrecord_dataset
+from yolov3_tf2.utils import draw_outputs
 
 flags.DEFINE_integer('num_classes', 80, 'number of classes in the model')
 flags.DEFINE_string('classes', './data/coco.names', 'path to classes file')
@@ -14,9 +18,6 @@ flags.DEFINE_string('weights', './checkpoints/yolov3.tf',
                     'path to weights file')
 flags.DEFINE_integer('size', 416, 'resize images to')
 flags.DEFINE_string('url', 'http://169.254.45.12:8080/?action=snapshot', 'url to stream')
-
-from yolov3_tf2.dataset import transform_images, load_tfrecord_dataset
-from yolov3_tf2.utils import draw_outputs
 
 
 def main(_argv):
@@ -33,9 +34,8 @@ def classification():
     class_names = [c.strip() for c in open(FLAGS.classes).readlines()]
     print('classes loaded')
 
-
-
     while True:
+        start = time.time()
         cap = cv2.VideoCapture(FLAGS.url)
         ret, img_raw = cap.read()
         if ret:
@@ -49,6 +49,7 @@ def classification():
             cv2.imshow('gray', frame)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
+        print(time.time() - start)
 
     cap.release()
     cv2.destroyAllWindows()
