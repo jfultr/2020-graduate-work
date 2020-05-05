@@ -1,3 +1,3 @@
-checkpoints/yolov3.tf.data-00000-of-00002
-checkpoints/yolov3.tf.data-00001-of-00002
-data/yolov3.weights
+Server/checkpoints/yolov3.tf.data-00000-of-00002
+Server/checkpoints/yolov3.tf.data-00001-of-00002
+Server/data/yolov3.weights
