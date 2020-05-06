@@ -1,0 +1,17 @@
+grdwork/
+*.dep
+*.uvgui.*
+*.uvgui_*.bak
+*.uvguix.*
+*.uvguix_*.bak
+*.uvoptx
+*_uvopt.bak
+*_uvoptx.bak
+*_uvproj.bak
+*_uvprojx.bak
+*.ctx
+*.dbi
+*.xdb
+*.TMP
+EventRecorderStub.scvd
+DebugConfig

@@ -106,12 +106,12 @@ int main(void)
     volatile uint32_t HCLK;
     HCLK = HAL_RCC_GetHCLKFreq();
     
-//    htim2.Instance->CCR1 = 1000;
-//    HAL_Delay(2000);
-//    htim2.Instance->CCR1 = 1500;
-//    HAL_Delay(2000);
-//    htim2.Instance->CCR1 = 2000;
-//    HAL_Delay(2000);
+    htim2.Instance->CCR1 = 1000;
+    HAL_Delay(2000);
+    htim2.Instance->CCR1 = 1500;
+    HAL_Delay(2000);
+    htim2.Instance->CCR1 = 2000;
+    HAL_Delay(2000);
     
       
     /* USER CODE END WHILE */
