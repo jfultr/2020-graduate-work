@@ -134,11 +134,11 @@
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
-            <DriverSelection>4107</DriverSelection>
+            <DriverSelection>4096</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
-          <Flash3></Flash3>
+          <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32L031xx,USE_HAL_DRIVER,STM32L031xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Inc; ../Drivers/STM32L0xx_HAL_Driver/Inc; ../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy; ../Drivers/CMSIS/Device/ST/STM32L0xx/Include; ../Drivers/CMSIS/Include</IncludePath>
+              <IncludePath>../Inc;    ../Drivers/STM32L0xx_HAL_Driver/Inc;    ../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy;    ../Drivers/CMSIS/Device/ST/STM32L0xx/Include;    ../Drivers/CMSIS/Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -425,6 +425,16 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Drivers/CMSIS</GroupName>
+          <Files>
+            <File>
+              <FileName>system_stm32l0xx.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Src/system_stm32l0xx.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Drivers/STM32L0xx_HAL_Driver</GroupName>
           <Files>
             <File>
@@ -436,16 +446,6 @@
               <FileName>stm32l0xx_hal_tim_ex.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_tim_ex.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32l0xx_hal_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_uart.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32l0xx_hal_uart_ex.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_uart_ex.c</FilePath>
             </File>
             <File>
               <FileName>stm32l0xx_hal.c</FileName>
@@ -512,15 +512,15 @@
               <FileType>1</FileType>
               <FilePath>../Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_cortex.c</FilePath>
             </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Drivers/CMSIS</GroupName>
-          <Files>
             <File>
-              <FileName>system_stm32l0xx.c</FileName>
+              <FileName>stm32l0xx_hal_uart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>../Src/system_stm32l0xx.c</FilePath>
+              <FilePath>../Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32l0xx_hal_uart_ex.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_uart_ex.c</FilePath>
             </File>
           </Files>
         </Group>

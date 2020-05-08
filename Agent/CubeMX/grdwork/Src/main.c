@@ -94,6 +94,10 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
+	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
+	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_4);
+
   RCC_ClkInitTypeDef sys;
   uint32_t latency;
   HAL_RCC_GetClockConfig(&sys, &latency);
@@ -106,11 +110,20 @@ int main(void)
     volatile uint32_t HCLK;
     HCLK = HAL_RCC_GetHCLKFreq();
     
-    htim2.Instance->CCR1 = 1000;
+    htim2.Instance->CCR1 = 600;
+		htim2.Instance->CCR2 = 600;
+		htim2.Instance->CCR3 = 600;
+		htim2.Instance->CCR4 = 600;
     HAL_Delay(2000);
-    htim2.Instance->CCR1 = 1500;
+    htim2.Instance->CCR1 = 1600;
+		htim2.Instance->CCR2 = 1600;
+		htim2.Instance->CCR3 = 1600;
+		htim2.Instance->CCR4 = 1600;
     HAL_Delay(2000);
-    htim2.Instance->CCR1 = 2000;
+    htim2.Instance->CCR1 = 2600;
+		htim2.Instance->CCR2 = 2600;
+		htim2.Instance->CCR3 = 2600;
+		htim2.Instance->CCR4 = 2600;
     HAL_Delay(2000);
     
       
