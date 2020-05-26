@@ -32,7 +32,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-struct Servos_Position pos;
+struct Servos_Position pos = {0};
 
 /* USER CODE END PTD */
 
@@ -107,7 +107,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-		Servos_Handler(pos);
+		Servos_Handler(&pos);
 		pos = Receive_and_Parse_Packet();
     /* USER CODE END WHILE */
 

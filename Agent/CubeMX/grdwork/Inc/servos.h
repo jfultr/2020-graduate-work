@@ -23,7 +23,7 @@ struct Servos_Position
 
 // public
 void Servos_Init(void);
-void Servos_Handler(struct Servos_Position pos);
+void Servos_Handler(struct Servos_Position *pos);
 
 // static
 static void Set_Position(struct Servos_Position *pos);

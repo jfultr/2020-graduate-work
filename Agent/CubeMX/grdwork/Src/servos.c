@@ -21,15 +21,11 @@ void Servos_Init(void)
 	HAL_TIM_PWM_Start(&htim21, TIM_CHANNEL_2);
 	HAL_TIM_PWM_Start(&htim22, TIM_CHANNEL_1);
 	HAL_TIM_PWM_Start(&htim22, TIM_CHANNEL_2);
-	struct Servos_Position pos = {0};
-	pos.second_left_feet_pos = 200;
-	pos.second_right_feet_pos = 200;
-	Set_Position(&pos);
 }
 
-void Servos_Handler(struct Servos_Position pos)
+void Servos_Handler(struct Servos_Position *pos)
 {
-	
+	Set_Position(pos);
 }
 
 static void Set_Position(struct Servos_Position *pos)

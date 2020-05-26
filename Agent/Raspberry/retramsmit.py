@@ -26,4 +26,4 @@ def push_position(data1, data2, data3, data4, data5, data6):
 
 
 if __name__ == '__main__':
-    push_position(0, 0, 0, 0, 2000, 2000)
+    push_position(0, 0, 0, 0, 600, 600)
