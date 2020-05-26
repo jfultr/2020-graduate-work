@@ -24,10 +24,10 @@
 #include "usart.h"
 #include "gpio.h"
 
-
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "servos.h"
+#include "communicate.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -91,10 +91,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_TIM2_Init();
-  MX_USART2_UART_Init();
-  MX_TIM21_Init();
-  MX_TIM22_Init();
+
   /* USER CODE BEGIN 2 */
 
   RCC_ClkInitTypeDef sys;
@@ -103,7 +100,7 @@ int main(void)
 	
 	
 	Servos_Init();
-
+	Comm_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -111,7 +108,7 @@ int main(void)
   while (1)
   {
 		Servos_Handler(pos);
- 
+		pos = Receive_and_Parse_Packet();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
