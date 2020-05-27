@@ -1,13 +1,12 @@
 import serial
 
-port = serial.Serial("COM3", baudrate=115200, timeout=3.0)
+port = serial.Serial("/dev/ttyUSB0", baudrate=115200, timeout=3.0)
 
 
 def push_position(data1, data2, data3, data4, data5, data6):
     frame = 22
     cs = 0
-    command = []
-    command.append(frame)
+    command = [frame]
     for data in [data1, data2, data3, data4, data5, data6]:
         HighBData = data >> 8
         cs += HighBData
@@ -24,6 +23,3 @@ def push_position(data1, data2, data3, data4, data5, data6):
     port.write(serial.to_bytes(command))
     port.close()
 
-
-if __name__ == '__main__':
-    push_position(0, 0, 0, 0, 600, 600)
