@@ -14,13 +14,14 @@ def run_server():
         clientsocket.send(bytes("Welcome to the server", "utf-8"))
         msg = clientsocket.recv(1024)
         print(msg)
-        msg = str(msg)
         if msg:
-            data = msg.split(',')
+            data = msg.split(b',')
+            data = [int(angle) for angle in data]
             print(data)
-            serialcom.push_position(0, 0, 0, 0, 200, 200)
+            serialcom.push_position(data)
         clientsocket.close()
 
 
 if __name__ == '__main__':
     run_server()
+
