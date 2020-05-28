@@ -14,7 +14,10 @@ def run_server():
         clientsocket.send(bytes("Welcome to the server", "utf-8"))
         msg = clientsocket.recv(1024)
         print(msg)
+        msg = str(msg)
         if msg:
+            data = msg.split(',')
+            print(data)
             serialcom.push_position(0, 0, 0, 0, 200, 200)
         clientsocket.close()
 
