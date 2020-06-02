@@ -81,13 +81,12 @@ keras.backend.clear_session()
 np.random.seed(42)
 tf.random.set_seed(42)
 model = keras.models.Sequential([
-    keras.layers.Dense(5, activation='elu', input_shape=[4]),
-    keras.layers.Dense(1, activation='sigmoid'),
+    keras.layers.Dense(10, activation='elu', input_shape=[3]),
+    keras.layers.Dense(6, activation='sigmoid'),
 ])
 
 print('start training')
 env = Environment()
-env.seed(42)
 for iteration in range(n_iterations):
     all_rewards, all_grads = play_multiple_episodes(
         env, n_episodes_per_update, n_max_steps, model, loss_fn)
@@ -105,4 +104,4 @@ for iteration in range(n_iterations):
 env.close()
 print('training ends')
 frames = render_policy_net(model)
-plot_animation(frames)
+
