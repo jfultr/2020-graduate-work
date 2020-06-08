@@ -1,15 +1,19 @@
+import gym
 import tensorflow as tf
 from tensorflow import keras
 import numpy as np
-from environment import Environment
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
 
 
 def render_policy_net(model, n_max_steps=200, seed=42):
     frames = []
-    env = Environment()
+    env = gym.make("CartPole-v1")
+    env.seed(seed)
     np.random.seed(seed)
     obs = env.reset()
     for step in range(n_max_steps):
+        frames.append(env.render(mode="rgb_array"))
         left_proba = model.predict(obs.reshape(1, -1))
         action = int(np.random.rand() > left_proba)
         obs, reward, done, info = env.step(action)
@@ -22,6 +26,17 @@ def render_policy_net(model, n_max_steps=200, seed=42):
 def update_scene(num, frames, patch):
     patch.set_data(frames[num])
     return patch,
+
+
+def plot_animation(frames, repeat=False, interval=40):
+    fig = plt.figure()
+    patch = plt.imshow(frames[0])
+    plt.axis('off')
+    anim = animation.FuncAnimation(
+        fig, update_scene, fargs=(frames, patch),
+        frames=len(frames), repeat=repeat, interval=interval)
+    plt.close()
+    return anim
 
 
 def play_one_step(env, obs, model, loss_fn):
@@ -81,12 +96,13 @@ keras.backend.clear_session()
 np.random.seed(42)
 tf.random.set_seed(42)
 model = keras.models.Sequential([
-    keras.layers.Dense(10, activation='elu', input_shape=[3]),
-    keras.layers.Dense(6, activation='sigmoid'),
+    keras.layers.Dense(5, activation='elu', input_shape=[4]),
+    keras.layers.Dense(1, activation='sigmoid'),
 ])
 
 print('start training')
-env = Environment()
+env = gym.make("CartPole-v0")
+env.seed(42)
 for iteration in range(n_iterations):
     all_rewards, all_grads = play_multiple_episodes(
         env, n_episodes_per_update, n_max_steps, model, loss_fn)
@@ -104,4 +120,4 @@ for iteration in range(n_iterations):
 env.close()
 print('training ends')
 frames = render_policy_net(model)
-
+plot_animation(frames)
