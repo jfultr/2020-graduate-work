@@ -1,10 +1,11 @@
 import threading
 from absl import app
-import processing
+from Server.processing import Camera
 
 
 def main(_argv):
-    thread = threading.Thread(target=processing.classification)
+    camera = Camera()
+    thread = threading.Thread(target=camera.open_view_window())
     thread.start()
 
 

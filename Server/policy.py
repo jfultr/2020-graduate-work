@@ -1,3 +1,4 @@
+from Server.environment import Environment
 import gym
 import tensorflow as tf
 from tensorflow import keras
@@ -9,9 +10,12 @@ import matplotlib.animation as animation
 def render_policy_net(model, n_max_steps=200, seed=42):
     frames = []
     env = gym.make("CartPole-v1")
-    env.seed(seed)
+    renv = Environment()
+    # env.seed(seed)
     np.random.seed(seed)
     obs = env.reset()
+    robs = renv.reset()
+
     for step in range(n_max_steps):
         frames.append(env.render(mode="rgb_array"))
         left_proba = model.predict(obs.reshape(1, -1))

@@ -19,31 +19,41 @@ flags.DEFINE_integer('size', 416, 'resize images to')
 flags.DEFINE_string('url', 'http://169.254.49.227:8080/?action=snapshot', 'url to stream')
 
 
-def classification():
-    yolo = YoloV3(classes=FLAGS.num_classes)
+class Camera(object):
 
-    yolo.load_weights(FLAGS.weights).expect_partial()
-    print('weights loaded')
+    def __init__(self):
+        self.yolo = YoloV3(classes=FLAGS.num_classes)
+        self.yolo.load_weights(FLAGS.weights).expect_partial()
+        print('weights loaded')
+        self.class_names = [c.strip() for c in open(FLAGS.classes).readlines()]
+        print('classes loaded')
+        self.cap = cv2.VideoCapture()
 
-    class_names = [c.strip() for c in open(FLAGS.classes).readlines()]
-    print('classes loaded')
+    def open_view_window(self):
+        while True:
+            start = time.time()
+            ret, img_raw = self.get_img_from_url()
+            if ret:
+                frame = self.classification()
+                cv2.imshow('gray', frame)
+                if cv2.waitKey(1) & 0xFF == ord('q'):
+                    break
+            print(time.time() - start)
 
-    while True:
-        start = time.time()
-        cap = cv2.VideoCapture(FLAGS.url)
-        ret, img_raw = cap.read()
-        if ret:
-            frame = tf.expand_dims(img_raw, 0)
-            frame = transform_images(frame, FLAGS.size)
-            boxes, scores, classes, nums = yolo(frame)
+        self.cap.release()
+        cv2.destroyAllWindows()
 
-            frame = cv2.cvtColor(img_raw, cv2.COLOR_BGR2GRAY)
-            frame = draw_outputs(frame, (boxes, scores, classes, nums), class_names)
+    def classification(self):
+        _, img_raw = self.get_img_from_url()
+        frame = tf.expand_dims(img_raw, 0)
+        frame = transform_images(frame, FLAGS.size)
+        boxes, scores, classes, nums = self.yolo(frame)
 
-            cv2.imshow('gray', frame)
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                break
-        print(time.time() - start)
+        frame = cv2.cvtColor(img_raw, cv2.COLOR_BGR2GRAY)
+        frame = draw_outputs(frame, (boxes, scores, classes, nums), self.class_names)
+        return frame
 
-    cap.release()
-    cv2.destroyAllWindows()
+    def get_img_from_url(self):
+        self.cap = cv2.VideoCapture(FLAGS.url)
+        ret, img_raw = self.cap.read()
+        return ret, img_raw
