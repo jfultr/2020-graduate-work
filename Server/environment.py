@@ -1,12 +1,11 @@
 import numpy as np
-import Server.processing as processing
+from Server.processing import Camera
 
 
 class Environment(object):
-
     def __init__(self):
-        pass
+        self.cam = Camera()
 
     def reset(self):
-        arr = np.array([0.1, 0.1, 0.666])
+        _, arr = self.cam.classification()
         return arr

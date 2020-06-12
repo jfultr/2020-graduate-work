@@ -6,15 +6,20 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
+# DEBUG
+renv = Environment()
+robs = renv.reset()
+print(robs)
+# DEBUG
+
 
 def render_policy_net(model, n_max_steps=200, seed=42):
     frames = []
     env = gym.make("CartPole-v1")
-    renv = Environment()
+
     # env.seed(seed)
     np.random.seed(seed)
     obs = env.reset()
-    robs = renv.reset()
 
     for step in range(n_max_steps):
         frames.append(env.render(mode="rgb_array"))
